@@ -6,18 +6,22 @@ const scrollTopBtn =
 document.querySelector('.scrollTop')
 
 
-window.addEventListener('scroll',() => {
+window.addEventListener('scroll', () => {
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-  const { scrollTop, scrollHeight, clientHeight } =
-  document.documentElement
-  if (Math.round(scrollTop) + Math.round(clientHeight) === Math.round(scrollHeight)) {
-    scrollTopBtn.classList.add('active');
-    addArticles(10)
+  // Check if user has scrolled to the bottom of the page
+  if (Math.round(scrollTop + clientHeight) >= Math.round(scrollHeight)) {
+    // If at bottom, add the 'active' class to scrollTopBtn (assuming it's defined elsewhere)
+    if (scrollTopBtn) {
+      scrollTopBtn.classList.add('active');
+    }
+
+    // Call the addArticles function with a parameter (assuming it's defined elsewhere)
+    if (typeof addArticles === 'function') {
+      addArticles(10);
+    }
   }
-
-})
-
-
+});
 function scrollToTop() {
   
   window.scrollTo({
